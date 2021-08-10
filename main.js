@@ -111,6 +111,22 @@ let randomPhotoClick = function () {
   let randomPhotoMiddle = Math.floor(Math.random() * allBusmallPics.length); // generates a random photo in the middle of the page
   let randomPhotoRight = Math.floor(Math.random() * allBusmallPics.length); // generates a random photo on the right side of the page
 
+
+    // We should check to make sure we dont display the same image 
+    // randomPhotoLeft = randomPhotoRight; // Let's start by setting the 2nd image array index equal to the first
+    // Then we can just loop until we get a different index value. we use a for loop because we dont know how many we times we want to loop to get a new picture
+    while (randomPhotoLeft === randomPhotoRight) { // while left is equal to right, randomize the left photo again
+        randomPhotoLeft = Math.floor(Math.random() * allBusmallPics.length); 
+    }
+    
+    while (randomPhotoRight === randomPhotoMiddle) {
+        randomPhotoRight = Math.floor(Math.random() * allBusmallPics.length); // while right pic is equal to middle, loop the right photo again
+    }
+    while (randomPhotoLeft === randomPhotoMiddle) {
+        randomPhotoRight = Math.floor(Math.random() * allBusmallPics.length); // while left is equal to middle, loop the right photo again
+    }
+
+
   // Update left busmall picutres to show up in DOM. the random photo is generated inside of the square brackets
   LEFT_BUSMALL_IMAGE.src = allBusmallPics[randomPhotoLeft].imageSrc;
   LEFT_BUSMALL_TEXT.innerText = allBusmallPics[randomPhotoLeft].nameofPicture;
@@ -235,7 +251,7 @@ const handleClickOnPicture = function (evt) {
         // Probably can do this on one line with dot notation/nesting
         let newLiScore = document.createElement("li");
         newLiScore.innerText = `${allBusmallPics[index].nameofPicture}: ${allBusmallPics[index].clicks}`; // the name of the pic, and how many times it was clicked
-        FINAL_SCORE.appendChild(newLiScore); // Add score
+        FINAL_SCORE.appendChild(newLiScore);  // Add score
       }
     }
   }
@@ -251,3 +267,16 @@ randomPhotoClick(); //starts us off when the user first loads the page.
 
 // REVIEW AND REFRESH EVENT LISTENERS
 // REWRITE BUSMALL PAGE WITHOUT LOOKING AT REFERENCE. ONE INSTRUCTION AT A TIME
+
+
+
+
+    // // We should check to make sure we dont display the same image 
+    // randomPhotoLeft = randomPhotoRight; // Let's start by setting the 2nd image array index equal to the first
+    // randomPhotoMiddle = randomPhotoRight;
+    // // Then we can just loop until we get a different index value
+    // // TODO Probably a better way to do this but meh...
+    // while (randomPhotoLeft === randomPhotoRight || randomPhotoLeft === randomPhotoMiddle) {
+    //     randomPhotoLeft = Math.floor(Math.random() * allGoatImageObjects.length); // classic random pattern with a max value
+    // }
+    // // Keep up with the 2 instances of the goat objects that got picked randomly (so we can update view and click counts)
