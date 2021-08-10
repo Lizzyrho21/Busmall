@@ -35,7 +35,7 @@ class BusMallPictures {
     this.imageSrc = imageSrc;
   }
 }
-console.log(BusMallPictures); //debugger for our class!
+// console.log(BusMallPictures); //debugger for our class!
 // This class above is basically a template to where we would store ALL of our pictures.
 
 //Lets fill in the template with the pictures we want
@@ -111,21 +111,24 @@ let randomPhotoClick = function () {
   let randomPhotoMiddle = Math.floor(Math.random() * allBusmallPics.length); // generates a random photo in the middle of the page
   let randomPhotoRight = Math.floor(Math.random() * allBusmallPics.length); // generates a random photo on the right side of the page
 
+  // =============== CHECKING FOR DUPLICATE PHOTOS =================== //
+  // We should check to make sure we dont display the same image
+  randomPhotoLeft = randomPhotoRight; // Let's start by setting the 2nd image array index equal to the first
+  // // Then we can just loop until we get a different index value. we use a for loop because we dont know how many we times we want to loop to get a new picture
+  while (randomPhotoLeft === randomPhotoRight) {
+    //   // while left is equal to right, randomize the left photo again
+    randomPhotoLeft = Math.floor(Math.random() * allBusmallPics.length);
+  }
 
-    // We should check to make sure we dont display the same image 
-    // randomPhotoLeft = randomPhotoRight; // Let's start by setting the 2nd image array index equal to the first
-    // Then we can just loop until we get a different index value. we use a for loop because we dont know how many we times we want to loop to get a new picture
-    while (randomPhotoLeft === randomPhotoRight) { // while left is equal to right, randomize the left photo again
-        randomPhotoLeft = Math.floor(Math.random() * allBusmallPics.length); 
-    }
-    
-    while (randomPhotoRight === randomPhotoMiddle) {
-        randomPhotoRight = Math.floor(Math.random() * allBusmallPics.length); // while right pic is equal to middle, loop the right photo again
-    }
-    while (randomPhotoLeft === randomPhotoMiddle) {
-        randomPhotoRight = Math.floor(Math.random() * allBusmallPics.length); // while left is equal to middle, loop the right photo again
-    }
-
+  while (randomPhotoRight === randomPhotoMiddle) {
+    randomPhotoRight = Math.floor(Math.random() * allBusmallPics.length);
+    // while right pic is equal to middle, loop the right photo again
+  }
+  while (randomPhotoLeft === randomPhotoMiddle) {
+    randomPhotoRight = Math.floor(Math.random() * allBusmallPics.length);
+    // while left is equal to middle, loop the right photo again
+  }
+  // =========== END OF CHECKING DUPLICATE PHOTOS ================== //
 
   // Update left busmall picutres to show up in DOM. the random photo is generated inside of the square brackets
   LEFT_BUSMALL_IMAGE.src = allBusmallPics[randomPhotoLeft].imageSrc;
@@ -147,15 +150,15 @@ let randomPhotoClick = function () {
 
   // =============== CHECKING FOR DUPLICATE PHOTOS =================== //
 
-  if (
-    randomPhotoLeft === randomPhotoRight ||
-    randomPhotoMiddle === randomPhotoRight ||
-    randomPhotoMiddle === randomPhotoLeft
-  ) {
-    // what do we want to do?
-    //generate another photo!
-    Math.floor(Math.random() * allBusmallPics.length);
-  }
+  //   if (
+  //     randomPhotoLeft === randomPhotoRight ||
+  //     randomPhotoMiddle === randomPhotoRight ||
+  //     randomPhotoMiddle === randomPhotoLeft
+  //   ) {
+  //     // what do we want to do?
+  //     //generate another photo!
+  //     Math.floor(Math.random() * allBusmallPics.length);
+  //   }
 
   // =========== END OF CHECKING DUPLICATE PHOTOS ================== //
 };
@@ -245,38 +248,119 @@ const handleClickOnPicture = function (evt) {
     BUSMALL_SECTION.appendChild(RESULTS_BUTTON); // make the button appear in our DOM.
     RESULTS_BUTTON.addEventListener("click", finalResultsTotal); // Wrap the total results in a function and use an addevent listener to call the button!
     function finalResultsTotal() {
+      makeAChart(); // call the function make a chart
       // display the clicks to the page
       for (let index = 0; index < allBusmallPics.length; index++) {
         //for loop to go through all of the pictures to see what was clicked
         // Probably can do this on one line with dot notation/nesting
         let newLiScore = document.createElement("li");
         newLiScore.innerText = `${allBusmallPics[index].nameofPicture}: ${allBusmallPics[index].clicks}`; // the name of the pic, and how many times it was clicked
-        FINAL_SCORE.appendChild(newLiScore);  // Add score
+        FINAL_SCORE.appendChild(newLiScore); // Add score
       }
     }
   }
 };
 
+//================ LAB 2 ==================================//
+
+// As a marketeer, I want to prevent users from seeing the same image in two subsequent iterations, so that they are not biased.
+// Update your algorithm to randomly generate three unique product images from the images directory.
+// Update your algorithm so that new products are generated, confirm that these products are not duplicates from the immediate previous set.
+
+// Using ChartJS (imported from CDN), display the vote totals and the number of times a product was viewed in a bar chart format. (hint: don’t forget about the <canvas> tags)
+// Place the bar chart in the section located beneath your three product images
+// The bar charts should only appear after all voting data has been collected.
+
+function makeAChart() {
+  // We placed all the table chart data inside of a function!
+  // ============= CHART.JS FOR VOTE TOTALS ===================== //
+  // FIrst, we need two arrays to hold our values
+  let storeTheNamesArray = []; //empty array because we will push all the names inside of this.
+  let storeTheTotalsArray = []; // empty array because we will push all the totals inside of this. TODO: STORE FUNCITON INTO ARRAY
+  let timesShownArray = [];
+
+  // lets start with our names for loop because we want to iterate through the object array and grab all the names.
+  // ======= storing the names array ========= //
+  for (i = 0; i < allBusmallPics.length; i++) {
+    // what do we want to do next?
+    // we want to push ALL of our names inside of our 'storeTheNameArray'
+    storeTheNamesArray.push(allBusmallPics[i].nameofPicture); // our expected output is to push all of our names inside of our new empty array
+    storeTheTotalsArray.push(allBusmallPics[i].clicks); //lets try storing that array as soon as the button is clicked
+    timesShownArray.push(allBusmallPics[i].timesShown); // expected output: timesshown array now has times shown data!
+  }
+
+  console.log(storeTheNamesArray);
+  console.log(storeTheTotalsArray);
+  console.log(timesShownArray);
+
+  // ====end of storing the names array ===== //
+
+  // Now that we have our first two pieces of data, we can create a chart for it.
+
+  // ============ CREATING THE BAR CHART ================//
+
+  // we create a label which is our array of names!
+  const labelsForChart = storeTheNamesArray;
+  //MATCHING VALUES THAT APPLY FOR OUR LABELS
+
+  const data = {
+    labels: labelsForChart, // refrence your array that you stored your names!
+    datasets: [
+      {
+        label: "Final Results", // This will show up as text in our chart
+        backgroundColor: "rgb(255, 99, 132)",
+        borderColor: "rgb(255, 99, 132)",
+        data: storeTheTotalsArray, // store your click totals array here!
+      },
+    ],
+  };
+
+  const configTheData = {
+    type: "bar",
+    data,
+    options: {},
+  };
+
+  //   POE:
+  let myBusMallChart = new Chart( //creating a new busmall chart object! (remember that everything really IS an object)
+    document.getElementById("myChart"),
+    configTheData
+  );
+  //=====Second chart data====//
+
+  // const labelsForSecChart = storeTheNamesArray;
+
+  // const dataSecondChart = {
+  //   labels: labelsForSecChart, // refrence your array that you stored your names!
+  //   datasets: [
+  //     {
+  //       label: "Times Image Is Shown", // This will show up as text in our chart
+  //       backgroundColor: "rgb(255, 99, 132)",
+  //       borderColor: "rgb(255, 99, 132)",
+  //       data: timesShownArray, // store your times shown totals array here!
+  //     },
+  //   ],
+  // };
+
+  // const configTheSecondChart = {
+  //   type: "bar",
+  //   dataSecondChart,
+  //   options: {},
+  // };
+
+  // //   POE:
+  // let SecondChart = new Chart( //creating a new busmall chart object! (remember that everything really IS an object)
+  //   document.getElementById("secondChart"),
+  //   configTheSecondChart // the type of chart and the data that will go INSIDE the chart.
+  // );
+
+  // I have to have an array of product image objects to get this chart working!
+  //   iterate through objects name and counts and push it into two arrays
+
+  // =================END OF FIRST CHART.JS==================================== //
+}
+
+// TODO: CREATE ANOTHER FUNCTION TO SET THE SECOND TABLE DATA
+
 BUSMALL_SECTION.addEventListener("click", handleClickOnPicture); // adding the event listener to the section!
 randomPhotoClick(); //starts us off when the user first loads the page.
-
-// TODO: Prevent two random pictures from showing up at the same time
-// Add a button with the text View Results, which when clicked
-// displays the list of all the products followed by the votes received,
-//  and number of times seen for each.
-
-// REVIEW AND REFRESH EVENT LISTENERS
-// REWRITE BUSMALL PAGE WITHOUT LOOKING AT REFERENCE. ONE INSTRUCTION AT A TIME
-
-
-
-
-    // // We should check to make sure we dont display the same image 
-    // randomPhotoLeft = randomPhotoRight; // Let's start by setting the 2nd image array index equal to the first
-    // randomPhotoMiddle = randomPhotoRight;
-    // // Then we can just loop until we get a different index value
-    // // TODO Probably a better way to do this but meh...
-    // while (randomPhotoLeft === randomPhotoRight || randomPhotoLeft === randomPhotoMiddle) {
-    //     randomPhotoLeft = Math.floor(Math.random() * allGoatImageObjects.length); // classic random pattern with a max value
-    // }
-    // // Keep up with the 2 instances of the goat objects that got picked randomly (so we can update view and click counts)

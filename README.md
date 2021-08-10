@@ -32,3 +32,10 @@ Add a button with the text View Results, which when clicked displays the list of
 
 NOTE: Displayed product names should match the file name for the product. Example: the product represented with dog-duck.jpg should be displayed to the user as exactly “dog-duck” when the results are shown.
 
+//======================= LAB 2=============================//
+
+1. As a marketeer, I want to prevent users from seeing the same image in two subsequent iterations, so that they are not biased.
+Update your algorithm to randomly generate three unique product images from the images directory.
+Update your algorithm so that new products are generated, confirm that these products are not duplicates from the immediate previous set.
+As a marketing manager, I would like a visual representation of how many times a product was clicked so that I can visually analyze the results.
+
