@@ -1,5 +1,6 @@
 # Busmall
 Busmall project 
+//===========LAB 1 IS COMPLETED==============//
 
 As a user, I would like to display three unique products by chance so that the viewers can pick a favorite.
 
