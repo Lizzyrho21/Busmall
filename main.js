@@ -105,6 +105,10 @@ const RIGHT_BUSMALL_TEXT = document.getElementById('right-busmall-text');
 //will display our final scores in the browser
 const FINAL_SCORE = document.getElementById('finalScores');
 
+// create our button 
+const RESULTS_BUTTON = document.createElement('button');
+RESULTS_BUTTON.innerText = "Click me to see results";
+
 //  Q: What do we want to do now that we have targeted our image and text ids?
 //  A: We want to connect the image ids with the images and the text ids with the text.
 
@@ -138,14 +142,14 @@ const FINAL_SCORE = document.getElementById('finalScores');
 
       // =============== CHECKING FOR DUPLICATE PHOTOS =================== //
      
-    // if (leftBusMallPic == rightBusMallPic)
-    // {
-    //     // what do we want to do?
-    //     //generate another photo!
-        
-    //   Math.floor(Math.random() * allBusmallPics.length);
-    //   console.log(leftBusMallPic);
-    //}
+    if (randomPhotoLeft === randomPhotoRight || randomPhotoMiddle === randomPhotoRight || randomPhotoMiddle === randomPhotoLeft)
+    {
+        // what do we want to do?
+        //generate another photo!
+         Math.floor(Math.random() * allBusmallPics.length);
+
+      
+    }
     
     // =========== END OF CHECKING DUPLICATE PHOTOS ================== //
   
@@ -188,12 +192,12 @@ const handleClickOnPicture = function (evt) { // a function is stored inside of 
         console.log(`Left pic ${leftBusMallPic.nameofPicture} has been shown ${leftBusMallPic.timesShown}, middle pic ${middleBusMallPic.nameofPicture} has been shown ${middleBusMallPic.timesShown}, and the right pic ${rightBusMallPic.nameofPicture} has been shown ${rightBusMallPic.timesShown} so far.`);
 
         // Check which was clicked and update counter
-        if (id === 'left-busmall-img' || id === 'right-busmall-img') {
+        if (id === 'left-busmall-img' || id === 'right-busmall-img' || id === 'middle-busmall-img') {
             //track the pcitures from the ids we recieved from the DOM.
 
             if (id === 'left-busmall-img') { // clicked on the left image
                 leftBusMallPic.clicks++; // adds to the amount of clicks!
-                console.log(`Left pic ${leftBusMallPic.nameofPicture} has ${leftBusMallPic.clicks} so far`);
+                 console.log(`Left pic ${leftBusMallPic.nameofPicture} has ${leftBusMallPic.clicks} so far`);
             }
 
             if (id === 'middle-busmall-img') { // clicked on the middle image
@@ -203,7 +207,7 @@ const handleClickOnPicture = function (evt) { // a function is stored inside of 
 
             if (id === 'right-busmall-img') { // clicked on the right image
                 rightBusMallPic.clicks++; //adds to the amount of clicks!
-                console.log(`Right pic ${rightBusMallPic.nameofPicture} has ${rightBusMallPic.clicks} so far`);
+                 console.log(`Right pic ${rightBusMallPic.nameofPicture} has ${rightBusMallPic.clicks} so far`);
             }
 
             //after we update the old, pick new pictures to reset!
@@ -218,25 +222,42 @@ const handleClickOnPicture = function (evt) { // a function is stored inside of 
      if (totalClicks === MAX_CLICKS) {
          BUSMALL_SECTION.removeEventListener('click', handleClickOnPicture); // stops the user from clicking any more pictures in the section.
          console.log('You picked 5 pictures, thanks!'); //sanity test to check if the max amount of clicks is documented
-        //  alert('You picked 5 goats, thanks!');
- 
+         
+        // button to click to show results
+        // button appears in if statement
+        BUSMALL_SECTION.appendChild(RESULTS_BUTTON); 
+            RESULTS_BUTTON.addEventListener('click', finalResultsTotal )
+            function finalResultsTotal (){
          // display the clicks to the page
          for (let index = 0; index < allBusmallPics.length; index++) { //for loop to go through all of the pictures to see what was clicked
              // Probably can do this on one line with dot notation/nesting
              let newLiScore = document.createElement('li');
              newLiScore.innerText = `${allBusmallPics[index].nameofPicture}: ${allBusmallPics[index].clicks}`; // the name of the pic, and how many times it was clicked
              FINAL_SCORE.appendChild(newLiScore); // Add score
+             
          }
+        }
      }
+    }
 
-}
+
 BUSMALL_SECTION.addEventListener('click', handleClickOnPicture); // adding the event listener to the section!
 randomPhotoClick(); //starts us off when the user first loads the page.
+
+
+
+
+
+
+
+
 
 // TODO: Prevent two random pictures from showing up at the same time
 // Add a button with the text View Results, which when clicked 
 // displays the list of all the products followed by the votes received,
 //  and number of times seen for each.
+
+
 
 
 // REVIEW AND REFRESH EVENT LISTENERS
