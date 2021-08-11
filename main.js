@@ -113,21 +113,21 @@ let randomPhotoClick = function () {
 
   // =============== CHECKING FOR DUPLICATE PHOTOS =================== //
   // We should check to make sure we dont display the same image
-  randomPhotoLeft = randomPhotoRight; // Let's start by setting the 2nd image array index equal to the first
-  // // Then we can just loop until we get a different index value. we use a for loop because we dont know how many we times we want to loop to get a new picture
-  while (randomPhotoLeft === randomPhotoRight) {
-    //   // while left is equal to right, randomize the left photo again
-    randomPhotoLeft = Math.floor(Math.random() * allBusmallPics.length);
-  }
+  // randomPhotoLeft = randomPhotoRight; // Let's start by setting the 2nd image array index equal to the first
+  // // // Then we can just loop until we get a different index value. we use a for loop because we dont know how many we times we want to loop to get a new picture
+  // while (randomPhotoLeft === randomPhotoRight) {
+  //   //   // while left is equal to right, randomize the left photo again
+  //   randomPhotoLeft = Math.floor(Math.random() * allBusmallPics.length);
+  // }
 
-  while (randomPhotoRight === randomPhotoMiddle) {
-    randomPhotoRight = Math.floor(Math.random() * allBusmallPics.length);
-    // while right pic is equal to middle, loop the right photo again
-  }
-  while (randomPhotoLeft === randomPhotoMiddle) {
-    randomPhotoRight = Math.floor(Math.random() * allBusmallPics.length);
-    // while left is equal to middle, loop the right photo again
-  }
+  // while (randomPhotoRight === randomPhotoMiddle) {
+  //   randomPhotoRight = Math.floor(Math.random() * allBusmallPics.length);
+  //   // while right pic is equal to middle, loop the right photo again
+  // }
+  // while (randomPhotoLeft === randomPhotoMiddle) {
+  //   randomPhotoRight = Math.floor(Math.random() * allBusmallPics.length);
+  //   // while left is equal to middle, loop the right photo again
+  // }
   // =========== END OF CHECKING DUPLICATE PHOTOS ================== //
 
   // Update left busmall picutres to show up in DOM. the random photo is generated inside of the square brackets
@@ -248,7 +248,9 @@ const handleClickOnPicture = function (evt) {
     BUSMALL_SECTION.appendChild(RESULTS_BUTTON); // make the button appear in our DOM.
     RESULTS_BUTTON.addEventListener("click", finalResultsTotal); // Wrap the total results in a function and use an addevent listener to call the button!
     function finalResultsTotal() {
-      makeAChart(); // call the function make a chart
+    makeAChart(); // call the function make a chart
+    updateLocalData();
+   
      
       // display the clicks to the page
       for (let index = 0; index < allBusmallPics.length; index++) {
@@ -352,6 +354,81 @@ function makeAChart() {
 BUSMALL_SECTION.addEventListener("click", handleClickOnPicture); // adding the event listener to the section!
 randomPhotoClick(); //starts us off when the user first loads the page.
 
+// ============= WORKING ON LOCAL STORAGE ========== //
+
+
+// TODO: 
+
+// As a user, I would like my data to persistently track totals between page refreshes,
+//  so that I can keep track of the aggregate number of votes.
+
+//we want to store all the generated data inside the page so we can keep adding more!
+
+// Implement local storage into your current application
+// Make sure the data persists across both browser refreshes and resets
+// Hints:
+
+// Store the products array into local storage as a formatted JSON string
+// Retrieve the products array from local storage and then utilize the JSON.Parse() function.
+
+function updateLocalData ()
+{
+  // function we will use to store the data we want
+ const arrayString = JSON.stringify(allBusmallPics) // global array set to a JSON string to transfer data.
+//  console.log(`${arrayString}`) //debugging works. shows up in console.
+ // using key/ value pairs to show up in local storage
+ localStorage.setItem('allproducts', arrayString) // we are using the power local storage to save our objects.
+
+//  summary so far:
+//we have made a variable to transfer our array into a string
+// we have JSON stringified our array of data.
+// we have set our data into a local storage for reuse!
+}
+ 
+
+// NEXT STEPS:
+// where would we want to call our 'get local storage'?
+
+function getLocalStorage()
+{ // getting the stored data from the local storage
+
+  // Here, we are retriving the data from the local storage
+  const oldData = localStorage.getItem('allproducts');
+
+  // console.log(` old data is ${oldData}`); // debugger works
+
+  // Here, we create another variable that uses JSON parse. this makes sure that all the string data is turned back into something we use for our JS.
+  const allProductData = JSON.parse(oldData);
+
+  // if product data is null, we can throw an error
+  if(allProductData !== null)
+  {
+    allBusmallPics = allProductData 
+  }
+  else{
+    console.log("Local Storage ready...");
+  }
+        
+}
+
+
+getLocalStorage(); // lets call it here. It retrieves all the data and saves it
+
+
+
+// ======= END OF LOCAL STORAGE DATA ==== //
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -394,5 +471,3 @@ randomPhotoClick(); //starts us off when the user first loads the page.
 //   );
   
   
- 
-
