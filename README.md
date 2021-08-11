@@ -39,3 +39,4 @@ Update your algorithm to randomly generate three unique product images from the 
 Update your algorithm so that new products are generated, confirm that these products are not duplicates from the immediate previous set.
 As a marketing manager, I would like a visual representation of how many times a product was clicked so that I can visually analyze the results.
 
+// LAB 2 COMPLETED //

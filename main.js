@@ -249,6 +249,7 @@ const handleClickOnPicture = function (evt) {
     RESULTS_BUTTON.addEventListener("click", finalResultsTotal); // Wrap the total results in a function and use an addevent listener to call the button!
     function finalResultsTotal() {
       makeAChart(); // call the function make a chart
+     
       // display the clicks to the page
       for (let index = 0; index < allBusmallPics.length; index++) {
         //for loop to go through all of the pictures to see what was clicked
@@ -271,11 +272,14 @@ const handleClickOnPicture = function (evt) {
 // Place the bar chart in the section located beneath your three product images
 // The bar charts should only appear after all voting data has been collected.
 
+
+// ======================== CHART.JS TABLE DATA ============================ //
 function makeAChart() {
-  // We placed all the table chart data inside of a function!
-  // ============= CHART.JS FOR VOTE TOTALS ===================== //
+ 
+  // ============= CREATING OUR ARRAY VALUES  ===================== //
+   // We placed all the table chart data inside of a function!
   // FIrst, we need two arrays to hold our values
-  let storeTheNamesArray = []; //empty array because we will push all the names inside of this.
+  let storeTheNamesArray = [];
   let storeTheTotalsArray = []; // empty array because we will push all the totals inside of this. TODO: STORE FUNCITON INTO ARRAY
   let timesShownArray = [];
 
@@ -284,18 +288,21 @@ function makeAChart() {
   for (i = 0; i < allBusmallPics.length; i++) {
     // what do we want to do next?
     // we want to push ALL of our names inside of our 'storeTheNameArray'
-    storeTheNamesArray.push(allBusmallPics[i].nameofPicture); // our expected output is to push all of our names inside of our new empty array
+    
     storeTheTotalsArray.push(allBusmallPics[i].clicks); //lets try storing that array as soon as the button is clicked
-    timesShownArray.push(allBusmallPics[i].timesShown); // expected output: timesshown array now has times shown data!
+    storeTheNamesArray.push(allBusmallPics[i].nameofPicture); // ets store all the names inside of our array!
+    timesShownArray.push(allBusmallPics[i].timesShown); // let's store all of the timesshown inside of our array!
+  
   }
 
-  console.log(storeTheNamesArray);
-  console.log(storeTheTotalsArray);
-  console.log(timesShownArray);
+  console.log(storeTheNamesArray); //debugging
+  console.log(storeTheTotalsArray); //debugging
+  console.log(timesShownArray); //debugging
 
-  // ====end of storing the names array ===== //
 
-  // Now that we have our first two pieces of data, we can create a chart for it.
+  // ==== END OF STORING OUR ARRAY VALUES ===== //
+
+  // Now that we have our data, we can make a chart for it! 
 
   // ============ CREATING THE BAR CHART ================//
 
@@ -307,10 +314,16 @@ function makeAChart() {
     labels: labelsForChart, // refrence your array that you stored your names!
     datasets: [
       {
-        label: "Final Results", // This will show up as text in our chart
+        label: "Clicks", // This will show up as text in our chart
         backgroundColor: "rgb(255, 99, 132)",
         borderColor: "rgb(255, 99, 132)",
         data: storeTheTotalsArray, // store your click totals array here!
+      },
+      {
+        label: "Times Image Is Shown", // This will show up as text in our chart
+        backgroundColor: "#99FF99",
+        borderColor: "#99FF99",
+        data: timesShownArray, // store your times shown totals array here!
       },
     ],
   };
@@ -326,41 +339,60 @@ function makeAChart() {
     document.getElementById("myChart"),
     configTheData
   );
-  //=====Second chart data====//
-
-  // const labelsForSecChart = storeTheNamesArray;
-
-  // const dataSecondChart = {
-  //   labels: labelsForSecChart, // refrence your array that you stored your names!
-  //   datasets: [
-  //     {
-  //       label: "Times Image Is Shown", // This will show up as text in our chart
-  //       backgroundColor: "rgb(255, 99, 132)",
-  //       borderColor: "rgb(255, 99, 132)",
-  //       data: timesShownArray, // store your times shown totals array here!
-  //     },
-  //   ],
-  // };
-
-  // const configTheSecondChart = {
-  //   type: "bar",
-  //   dataSecondChart,
-  //   options: {},
-  // };
-
-  // //   POE:
-  // let SecondChart = new Chart( //creating a new busmall chart object! (remember that everything really IS an object)
-  //   document.getElementById("secondChart"),
-  //   configTheSecondChart // the type of chart and the data that will go INSIDE the chart.
-  // );
-
+  
   // I have to have an array of product image objects to get this chart working!
   //   iterate through objects name and counts and push it into two arrays
 
-  // =================END OF FIRST CHART.JS==================================== //
+  // =================END OF CHART.JS ==================================== //
 }
 
-// TODO: CREATE ANOTHER FUNCTION TO SET THE SECOND TABLE DATA
+
+
 
 BUSMALL_SECTION.addEventListener("click", handleClickOnPicture); // adding the event listener to the section!
 randomPhotoClick(); //starts us off when the user first loads the page.
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function secondChart(){
+ 
+//   for (i = 0; i < allBusmallPics.length; i++){
+//     // expected output: timesshown array now has times shown data!
+//   }
+
+//   //=====Second chart data====//
+
+//   const labelsForSecChart = storeTheNamesArray;
+
+//   const dataSecondChart = {
+//     labels: labelsForSecChart, // refrence your array that you stored your names!
+//     datasets: [
+      
+//     ],
+//   };
+
+//   const configTheSecondChart = {
+//     type: "bar",
+//     dataSecondChart,
+//     options: {},
+//   };
+
+//   //   POE:
+//   let SecondChart = new Chart( //creating a new busmall chart object! (remember that everything really IS an object)
+//     document.getElementById("secondChart"),
+//     configTheSecondChart // the type of chart and the data that will go INSIDE the chart.
+//   );
+  
+  
+ 
+
