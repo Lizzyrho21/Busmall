@@ -106,12 +106,35 @@ RESULTS_BUTTON.innerText = "Click me to see results!";
 // ======================= CREATE A FUNCTION THAT WILL RANDOMLY GENERATE OUR PICTURES ======================== //
 // out of the 10 photos we have in the 'allBusmallPics' array, we want to generate only three at a time that are chosen by the computer.
 let randomPhotoClick = function () {
-  // this is an ANON function. TODO: Research more on why we use ANON functions.
+  // this is an ANON function. 
   let randomPhotoLeft = Math.floor(Math.random() * allBusmallPics.length); // generates a random photo on the left side of the page
   let randomPhotoMiddle = Math.floor(Math.random() * allBusmallPics.length); // generates a random photo in the middle of the page
   let randomPhotoRight = Math.floor(Math.random() * allBusmallPics.length); // generates a random photo on the right side of the page
 
   // =============== CHECKING FOR DUPLICATE PHOTOS =================== //
+
+for (i = 0; i < MAX_CLICKS; i++) //We want to randomize between 0 to the given clicks
+{
+  if(randomPhotoLeft === randomPhotoMiddle)
+  {
+   randomPhotoMiddle = Math.floor(Math.random() * allBusmallPics.length); // middle is set to another random pic
+
+  }
+  
+  
+    else if (randomPhotoRight === randomPhotoLeft)
+    {
+      randomPhotoLeft = Math.floor(Math.random() * allBusmallPics.length); // right is set to another random pic
+    }
+    
+    else if (randomPhotoMiddle === randomPhotoRight)
+    {
+      randomPhotoRight = Math.floor(Math.random() * allBusmallPics.length); // right is set to another random pic
+    }
+  
+
+}
+
   // We should check to make sure we dont display the same image
   // randomPhotoLeft = randomPhotoRight; // Let's start by setting the 2nd image array index equal to the first
   // // // Then we can just loop until we get a different index value. we use a for loop because we dont know how many we times we want to loop to get a new picture
@@ -148,19 +171,7 @@ let randomPhotoClick = function () {
   middleBusMallPic = allBusmallPics[randomPhotoMiddle];
   rightBusMallPic = allBusmallPics[randomPhotoRight];
 
-  // =============== CHECKING FOR DUPLICATE PHOTOS =================== //
-
-  //   if (
-  //     randomPhotoLeft === randomPhotoRight ||
-  //     randomPhotoMiddle === randomPhotoRight ||
-  //     randomPhotoMiddle === randomPhotoLeft
-  //   ) {
-  //     // what do we want to do?
-  //     //generate another photo!
-  //     Math.floor(Math.random() * allBusmallPics.length);
-  //   }
-
-  // =========== END OF CHECKING DUPLICATE PHOTOS ================== //
+ 
 };
 
 // ======================= END OF OUR RANDOM GENERATOR FUNCITON ================================== //
@@ -169,10 +180,6 @@ let randomPhotoClick = function () {
 
 //================== END OF DOM SETUP ============================ //
 
-//TODO: REFRESH ON EVENT LISTENERS
-//TODO: ADD EVENT LISTENER!
-//TODO:GENERATE TOTAL NUMBER OF CLICKS
-//GENERATE TOTAL TIMES IMAGES SHOW UP
 
 //============= EVENT LISTENER=================//
 
@@ -248,10 +255,9 @@ const handleClickOnPicture = function (evt) {
     BUSMALL_SECTION.appendChild(RESULTS_BUTTON); // make the button appear in our DOM.
     RESULTS_BUTTON.addEventListener("click", finalResultsTotal); // Wrap the total results in a function and use an addevent listener to call the button!
     function finalResultsTotal() {
-    makeAChart(); // call the function make a chart
-    updateLocalData();
-   
-     
+      makeAChart(); // call the function make a chart
+      updateLocalData();
+
       // display the clicks to the page
       for (let index = 0; index < allBusmallPics.length; index++) {
         //for loop to go through all of the pictures to see what was clicked
@@ -274,15 +280,13 @@ const handleClickOnPicture = function (evt) {
 // Place the bar chart in the section located beneath your three product images
 // The bar charts should only appear after all voting data has been collected.
 
-
 // ======================== CHART.JS TABLE DATA ============================ //
 function makeAChart() {
- 
   // ============= CREATING OUR ARRAY VALUES  ===================== //
-   // We placed all the table chart data inside of a function!
+  // We placed all the table chart data inside of a function!
   // FIrst, we need two arrays to hold our values
   let storeTheNamesArray = [];
-  let storeTheTotalsArray = []; // empty array because we will push all the totals inside of this. TODO: STORE FUNCITON INTO ARRAY
+  let storeTheTotalsArray = []; // empty array because we will push all the totals inside of this.
   let timesShownArray = [];
 
   // lets start with our names for loop because we want to iterate through the object array and grab all the names.
@@ -290,21 +294,19 @@ function makeAChart() {
   for (i = 0; i < allBusmallPics.length; i++) {
     // what do we want to do next?
     // we want to push ALL of our names inside of our 'storeTheNameArray'
-    
+
     storeTheTotalsArray.push(allBusmallPics[i].clicks); //lets try storing that array as soon as the button is clicked
     storeTheNamesArray.push(allBusmallPics[i].nameofPicture); // ets store all the names inside of our array!
     timesShownArray.push(allBusmallPics[i].timesShown); // let's store all of the timesshown inside of our array!
-  
   }
 
   console.log(storeTheNamesArray); //debugging
   console.log(storeTheTotalsArray); //debugging
   console.log(timesShownArray); //debugging
 
-
   // ==== END OF STORING OUR ARRAY VALUES ===== //
 
-  // Now that we have our data, we can make a chart for it! 
+  // Now that we have our data, we can make a chart for it!
 
   // ============ CREATING THE BAR CHART ================//
 
@@ -341,23 +343,19 @@ function makeAChart() {
     document.getElementById("myChart"),
     configTheData
   );
-  
+
   // I have to have an array of product image objects to get this chart working!
   //   iterate through objects name and counts and push it into two arrays
 
   // =================END OF CHART.JS ==================================== //
 }
 
-
-
-
 BUSMALL_SECTION.addEventListener("click", handleClickOnPicture); // adding the event listener to the section!
 randomPhotoClick(); //starts us off when the user first loads the page.
 
 // ============= WORKING ON LOCAL STORAGE ========== //
 
-
-// TODO: 
+// TODO:
 
 // As a user, I would like my data to persistently track totals between page refreshes,
 //  so that I can keep track of the aggregate number of votes.
@@ -371,29 +369,27 @@ randomPhotoClick(); //starts us off when the user first loads the page.
 // Store the products array into local storage as a formatted JSON string
 // Retrieve the products array from local storage and then utilize the JSON.Parse() function.
 
-function updateLocalData ()
-{
+function updateLocalData() {
   // function we will use to store the data we want
- const arrayString = JSON.stringify(allBusmallPics) // global array set to a JSON string to transfer data.
-//  console.log(`${arrayString}`) //debugging works. shows up in console.
- // using key/ value pairs to show up in local storage
- localStorage.setItem('allproducts', arrayString) // we are using the power local storage to save our objects.
+  const arrayString = JSON.stringify(allBusmallPics); // global array set to a JSON string to transfer data.
+  //  console.log(`${arrayString}`) //debugging works. shows up in console.
+  // using key/ value pairs to show up in local storage
+  localStorage.setItem("allproducts", arrayString); // we are using the power local storage to save our objects.
 
-//  summary so far:
-//we have made a variable to transfer our array into a string
-// we have JSON stringified our array of data.
-// we have set our data into a local storage for reuse!
+  //  summary so far:
+  //we have made a variable to transfer our array into a string
+  // we have JSON stringified our array of data.
+  // we have set our data into a local storage for reuse!
 }
- 
 
 // NEXT STEPS:
 // where would we want to call our 'get local storage'?
 
-function getLocalStorage()
-{ // getting the stored data from the local storage
+function getLocalStorage() {
+  // getting the stored data from the local storage
 
   // Here, we are retriving the data from the local storage
-  const oldData = localStorage.getItem('allproducts');
+  const oldData = localStorage.getItem("allproducts");
 
   // console.log(` old data is ${oldData}`); // debugger works
 
@@ -401,73 +397,14 @@ function getLocalStorage()
   const allProductData = JSON.parse(oldData);
 
   // if product data is null, we can throw an error
-  if(allProductData !== null)
-  {
-    allBusmallPics = allProductData 
-  }
-  else{
+  if (allProductData !== null) {
+    allBusmallPics = allProductData;
+  } else {
     console.log("Local Storage ready...");
   }
-        
 }
-
 
 getLocalStorage(); // lets call it here. It retrieves all the data and saves it
 
-
-
-// ======= END OF LOCAL STORAGE DATA ==== //
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function secondChart(){
- 
-//   for (i = 0; i < allBusmallPics.length; i++){
-//     // expected output: timesshown array now has times shown data!
-//   }
-
-//   //=====Second chart data====//
-
-//   const labelsForSecChart = storeTheNamesArray;
-
-//   const dataSecondChart = {
-//     labels: labelsForSecChart, // refrence your array that you stored your names!
-//     datasets: [
-      
-//     ],
-//   };
-
-//   const configTheSecondChart = {
-//     type: "bar",
-//     dataSecondChart,
-//     options: {},
-//   };
-
-//   //   POE:
-//   let SecondChart = new Chart( //creating a new busmall chart object! (remember that everything really IS an object)
-//     document.getElementById("secondChart"),
-//     configTheSecondChart // the type of chart and the data that will go INSIDE the chart.
-//   );
-  
-  
+//TODO: REFRESH ON EVENT LISTENERS
+// TODO: Research more on why we use ANON functions.

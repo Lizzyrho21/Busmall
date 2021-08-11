@@ -40,3 +40,6 @@ Update your algorithm so that new products are generated, confirm that these pro
 As a marketing manager, I would like a visual representation of how many times a product was clicked so that I can visually analyze the results.
 
 // LAB 2 COMPLETED //
+
+
+//========== LAB 3 COMPLETED =============//
