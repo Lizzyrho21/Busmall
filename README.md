@@ -1,5 +1,18 @@
 # Busmall
 Busmall project 
+For the resources of this project:
+
+- Stackoverflow.com
+- W3Schools.com
+- MDN.com
+- Bootstrap.com
+- CSS-tricks.com
+
+My peers Demarcus Lester, and Jerrod Bolton, gave me inspiration for writing the code to keep my images from duplicating
+
+
+
+
 //===========LAB 1 IS COMPLETED==============//
 
 As a user, I would like to display three unique products by chance so that the viewers can pick a favorite.

@@ -98,7 +98,9 @@ const FINAL_SCORE = document.getElementById("finalScores");
 
 // create our button in the JAVASCRIPT because we don't want it to show up right now
 const RESULTS_BUTTON = document.createElement("button");
+RESULTS_BUTTON.className = "btn btn-primary";
 RESULTS_BUTTON.innerText = "Click me to see results!";
+ 
 
 //  Q: What do we want to do now that we have targeted our image and text ids?
 //  A: We want to connect the image ids with the images and the text ids with the text.
@@ -263,6 +265,7 @@ const handleClickOnPicture = function (evt) {
         //for loop to go through all of the pictures to see what was clicked
         // Probably can do this on one line with dot notation/nesting
         let newLiScore = document.createElement("li");
+        newLiScore.className = "list-group-item"
         newLiScore.innerText = `${allBusmallPics[index].nameofPicture}: ${allBusmallPics[index].clicks}`; // the name of the pic, and how many times it was clicked
         FINAL_SCORE.appendChild(newLiScore); // Add score
       }
